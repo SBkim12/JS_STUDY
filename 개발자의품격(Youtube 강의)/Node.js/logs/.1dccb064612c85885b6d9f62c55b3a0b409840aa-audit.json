@@ -1,0 +1,14 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 30
+    },
+    "auditLog": "C:\\프로그래밍공부\\개발자의품격(Youtube 강의)\\Node.js\\logs\\.1dccb064612c85885b6d9f62c55b3a0b409840aa-audit.json",
+    "files": [
+        {
+            "date": 1624979151729,
+            "name": "C:\\프로그래밍공부\\개발자의품격(Youtube 강의)\\Node.js\\logs\\2021-06-30.exception.log",
+            "hash": "05c9e6e39fa5a55ddc1aaa5b03f76ec9"
+        }
+    ]
+}
