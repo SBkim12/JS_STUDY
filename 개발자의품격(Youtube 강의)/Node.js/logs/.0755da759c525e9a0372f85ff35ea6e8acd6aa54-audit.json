@@ -1,0 +1,14 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 30
+    },
+    "auditLog": "C:\\js_study\\개발자의품격(Youtube 강의)\\Node.js\\logs\\.0755da759c525e9a0372f85ff35ea6e8acd6aa54-audit.json",
+    "files": [
+        {
+            "date": 1625202975248,
+            "name": "C:\\js_study\\개발자의품격(Youtube 강의)\\Node.js\\logs\\2021-07-02.log",
+            "hash": "f8789bf07b69c10956820d8ca7690074"
+        }
+    ]
+}
