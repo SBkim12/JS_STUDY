@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- bean의 id는 변수명(exam) class는 객체(lecExam)(중복을 피하기 위해 상세 위치 적어주기) -->
+	<!-- Exam exam = new lecExam(); -->
+	<!-- 단일태그로 줄여서 사용 -->
+	<bean id="exam" class="spring.di.entity.lecExam" p:kor="10" p:eng="20" p:math="30" p:com="40"/>
+	<!-- 
+	<bean id="exam" class="spring.di.entity.lecExam">
+		<constructor-arg name="kor" value="10" />
+		<constructor-arg name="eng" value="20" />
+		<constructor-arg name="math" value="30" />
+		<constructor-arg name="com" value="40" />
+		
+		인덱스로 값 설정해주는 방식 , type까지 상세하게 지정해서 사용가능
+		<constructor-arg index="0" value="10" />
+		<constructor-arg index="1" value="20" />
+		<constructor-arg index="2" value="30" />
+		<constructor-arg index="3" value="40" /> 
+		
+		
+		4개 과목의 값을 설정파일에서 넣어주는 방식
+		<property name="kor">
+			<value>10</value>
+		</property>
+		<property name="eng" value="10" />	
+		<property name="math" value="10" />	
+		<property name="com" value="10" />	 
+		
+	</bean>  
+	-->
+	
+	<!-- ExamConsole console = new GridExamConsole();  -->
+	<bean id="console" class="spring.di.ui.GridExamConsole">
+		<!-- set은 생략 -->
+		<!-- console.setExam(exam); -->
+		<property name="exam" ref="exam"></property>
+	</bean> 
+	
+	<!-- 
+	설정 파일에서 연결 파일만 바꾸면 소스코드 변경없이 변경 가능
+	<bean id="console" class="spring.di.ui.InlineExamConsole">
+		<property name="exam" ref="exam"></property>
+	</bean> 
+	-->
+	
+	
+	<!-- 콜렉션 생성과 목록 DI  -->
+	<bean id="exams" class="java.util.ArrayList" >
+		<constructor-arg>
+			<list>
+				<bean class="spring.di.entity.lecExam" p:kor="1" p:eng="1" p:math="30" p:com="40"/><!-- 직접생성 -->
+				<ref bean="exam" /><!-- 참조 생성 -->
+			</list>
+		</constructor-arg>			
+	</bean> 
+	<!-- 위와 같은 설정 파일 다른 형식 -->
+	<!-- <util:list id="exams" list-class="java.util.ArrayList">
+		<bean class="spring.di.entity.lecExam" p:kor="1" p:eng="1" p:math="30" p:com="40"/>
+		<ref bean="exam" />
+	</util:list>  -->
+	
+</beans>
