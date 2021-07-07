@@ -1,14 +1,25 @@
+<!-- 
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.1.xsd"> -->
+	
+	<!-- <context:component-scan base-package="spring.di.ui, spring.di.entity" /> --> <!-- spring.di.ui위치에서 component라는 것이 있으면 객체로 생성해라 -->
+	<!-- <context:annotation-config /> --> <!-- component-scan을 실행하면 객체를 생성하면서 내부의 어노테이션 자동 실행, 객체를 만들면서  어노테이션이 있으니 체크하라는 명령  -->
 	
 	<!-- bean의 id는 변수명(exam) class는 객체(lecExam)(중복을 피하기 위해 상세 위치 적어주기) -->
 	<!-- Exam exam = new lecExam(); -->
 	<!-- 단일태그로 줄여서 사용 -->
-	<bean id="exam" class="spring.di.entity.lecExam" p:kor="10" p:eng="20" p:math="30" p:com="40"/>
+	<!-- 
+	<bean id="exam1" class="spring.di.entity.lecExam" p:kor="10" p:eng="20" p:math="30" p:com="460"/>
+	<bean id="exam2" class="spring.di.entity.lecExam" p:kor="10" p:eng="20" p:math="30" p:com="40"/> -->
 	<!-- 
 	<bean id="exam" class="spring.di.entity.lecExam">
 		<constructor-arg name="kor" value="10" />
@@ -35,33 +46,42 @@
 	-->
 	
 	<!-- ExamConsole console = new GridExamConsole();  -->
+	<!-- 
 	<bean id="console" class="spring.di.ui.GridExamConsole">
-		<!-- set은 생략 -->
-		<!-- console.setExam(exam); -->
+		set은 생략
+		console.setExam(exam);
 		<property name="exam" ref="exam"></property>
-	</bean> 
+	</bean>  
+	-->
 	
 	<!-- 
-	설정 파일에서 연결 파일만 바꾸면 소스코드 변경없이 변경 가능
-	<bean id="console" class="spring.di.ui.InlineExamConsole">
-		<property name="exam" ref="exam"></property>
-	</bean> 
-	-->
+	설정 파일에서 연결 파일만 바꾸면 소스코드 변경없이 변경 가능-->
+	<!-- <bean id="console" class="spring.di.ui.InlineExamConsole"> -->
+		
+		<!-- <property name="exam" ref="exam"/> --> 
+		<!-- 
+		어노테이션으로 표현하면 
+		@Autowired
+		private Exam exam;
+ 		-->	
+	<!-- </bean> --> 
 	
 	
 	<!-- 콜렉션 생성과 목록 DI  -->
-	<bean id="exams" class="java.util.ArrayList" >
+	<!-- <bean id="exams" class="java.util.ArrayList" >
 		<constructor-arg>
 			<list>
-				<bean class="spring.di.entity.lecExam" p:kor="1" p:eng="1" p:math="30" p:com="40"/><!-- 직접생성 -->
-				<ref bean="exam" /><!-- 참조 생성 -->
+				<bean class="spring.di.entity.lecExam" p:kor="1" p:eng="1" p:math="30" p:com="40"/>직접생성
+				<ref bean="exam" /> 참조 생성
 			</list>
 		</constructor-arg>			
-	</bean> 
+	</bean>  -->
 	<!-- 위와 같은 설정 파일 다른 형식 -->
-	<!-- <util:list id="exams" list-class="java.util.ArrayList">
+	<!-- 
+	<util:list id="exams" list-class="java.util.ArrayList">
 		<bean class="spring.di.entity.lecExam" p:kor="1" p:eng="1" p:math="30" p:com="40"/>
 		<ref bean="exam" />
-	</util:list>  -->
+	</util:list>  
+	-->
 	
-</beans>
+<!-- </beans> -->

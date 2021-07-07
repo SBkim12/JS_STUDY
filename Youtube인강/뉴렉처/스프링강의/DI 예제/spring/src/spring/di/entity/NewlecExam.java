@@ -1,17 +1,23 @@
 package spring.di.entity;
 
-public class lecExam implements Exam {
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
+public class NewlecExam implements Exam {
 	
+	@Value("20") //초기값을 설정하는 어노테이션
 	private int kor;
+	@Value("30")
 	private int eng;
 	private int math;
 	private int com;
 	
-	public lecExam() {
+	public NewlecExam() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public lecExam(int kor, int eng, int math, int com) {
+	public NewlecExam(int kor, int eng, int math, int com) {
 		super();
 		this.kor = kor;
 		this.eng = eng;
