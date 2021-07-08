@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import spring.di.entity.Exam;
 import spring.di.entity.NewlecExam;
 
-// Java Configuration 파일
+//Java Configuration 파일
 
 @ComponentScan("spring.di.ui")
 @Configuration
