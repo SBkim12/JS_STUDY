@@ -60,6 +60,9 @@ public class NewlecExam implements Exam {
 		//메인 업무
 		int result = kor+eng+math+com;
 		
+		if(kor>100)
+			throw new IllegalArgumentException("유효하지 않은 국어 점수");
+		
 		//강제 시간 경과
 		try {
 			Thread.sleep(200);

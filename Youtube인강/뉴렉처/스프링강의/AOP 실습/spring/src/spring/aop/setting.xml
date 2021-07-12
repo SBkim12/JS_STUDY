@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	
+	<bean id="target" class="spring.aop.entity.NewlecExam" p:kor="99" p:eng="1" p:math="1" p:com="1"/>
+<!--
+이것으로 바로 연결하며 곁다리 업무(AOP)없이 바로 업무 진행됨
+<bean id="exam" class="spring.aop.entity.NewlecExam" p:kor="1" p:eng="1" p:math="1" p:com="1"/>
+ -->	
+	<!-- spring AOP 설정 -->
+	
+	<!-- 곁다리 업무 -->
+	<bean id="logAroundAdvice" class="spring.aop.advice.LogAroundAdvice"/>
+	<bean id="logBeforeAdvice" class="spring.aop.advice.LogBeforeAdvice"/>
+	<bean id="logAfterReturningAdvice" class="spring.aop.advice.LogAfterReturningAdvice"/>
+	<bean id="logAfterThrowingAdvice" class="spring.aop.advice.LogAfterThrowingAdvice"/>
+	
+	<!-- Before AOP의 메서드의 한정 설정 -->
+	<bean id="classicPointCut" class="org.springframework.aop.support.NameMatchMethodPointcut">
+		<property name="mappedName" value="total" /><!-- total이란 메서드만 weaving이 가능하게 함 -->
+	</bean>
+	<bean id="classicBeforeAdvisor" class="org.springframework.aop.support.DefaultBeanFactoryPointcutAdvisor">
+		<property name="advice" ref="logBeforeAdvice" />
+		<property name="pointcut" ref="classicPointCut" />
+	</bean>
+	<!-- Round AOP의 메서드의 한정 설정 -->
+	<bean id="classicAroundeAdvisor" class="org.springframework.aop.support.DefaultBeanFactoryPointcutAdvisor">
+		<property name="advice" ref="logAroundAdvice" />
+		<property name="pointcut" ref="classicPointCut" />
+	</bean>
+	
+	<!-- proxy -->
+	<bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="target" />
+		<!-- <property name="setTarget()" ref="target" /> -->
+		<property name="interceptorNames" >
+			<list>
+				<!-- <value>logAroundAdvice</value> --><!-- 업무의 앞뒤 -->
+				<value>classicAroundeAdvisor</value><!-- 업무의 앞뒤, 타겟의 메서드를 한정함 -->
+				<value>classicBeforeAdvisor</value><!-- 업무의 앞 , 타겟의 메서드를 한정함 -->
+				<!-- <value>logBeforeAdvice</value> --><!-- 업무의 앞 -->
+				<value>logAfterReturningAdvice</value><!-- 업무의 뒤 -->
+				<value>logAfterThrowingAdvice</value><!-- 예외 발생 시 -->
+			</list>
+		</property>
+	</bean>
+	
+	
+</beans>
