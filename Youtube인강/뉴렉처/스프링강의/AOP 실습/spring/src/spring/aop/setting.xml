@@ -34,6 +34,11 @@
 		<property name="advice" ref="logBeforeAdvice" />
 		<property name="pointcut" ref="classicPointCut" />
 	</bean> 
+	
+	<bean id="classicAroundeAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+		<property name="advice" ref="logAroundAdvice" />
+		<property name="pointcut" ref="total" />
+	</bean>
 	-->
 	<!-- => 줄이기 -->
 	<!-- <bean id="classicBeforeAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
@@ -45,7 +50,7 @@
 			</list>
 		</property>
 	</bean>  -->
-	<!-- 정규식 사용하기 -->
+	<!-- 정규식 사용하기 --> 
 	<bean id="classicBeforeAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
 		<property name="advice" ref="logBeforeAdvice" />
 		<property name="patterns">
@@ -54,15 +59,11 @@
 			</list>
 		</property>
 	</bean> 
-	
-	
-	
-	
-	
+ 	
 	<!-- Round AOP의 메서드의 한정 설정 -->
 	<bean id="classicAroundeAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
 		<property name="advice" ref="logAroundAdvice" />
-		<property name="pointcut" ref="total" />
+		<property name="mappedName" value="total" /> 
 	</bean>
 	
 	<!-- proxy -->
