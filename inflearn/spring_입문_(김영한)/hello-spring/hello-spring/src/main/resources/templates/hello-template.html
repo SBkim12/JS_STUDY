@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>hello</title>
+</head>
+<body>
+<p th:text="'hello ' + ${name}">hello! empty</p>
+<!--컨트롤러를 거치지 않고 이 페이지를 열면 p태그 안의 내용이 나오고 컨트롤러를 통해서 model에 값이 담겨서 오면 th:test의 내용 값이 출력이 된다-->
+</body>
+</html>
