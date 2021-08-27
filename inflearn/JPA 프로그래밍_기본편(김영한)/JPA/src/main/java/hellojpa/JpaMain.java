@@ -158,9 +158,9 @@ public class JpaMain {
          */
 
         //준영속
-        try{
+        /*try{
             Member member = em.find(Member.class, 150L);
-            member.setName("AAAAA");
+            member.setUsername("AAAAA");
 
             //em.detach(member); //특정 엔티티 준영속상태로 변경
             em.clear(); //영속성 컨텍스트를 완전히 초기화
@@ -168,6 +168,37 @@ public class JpaMain {
             Member member2 = em.find(Member.class, 150L); // 1차캐시에 조회된 내용이 없어졌기 때문에 다시 조회쿼리 동작
 
             System.out.println("========================");
+            tx.commit();
+        }catch(Exception e){
+            tx.rollback();
+        }finally{
+            em.close();
+        }*/
+
+        //키 매핑 테스트
+        try{
+            Member member1 = new Member();
+            member1.setUsername("A");
+
+            Member member2 = new Member();
+            member2.setUsername("B");
+
+            Member member3 = new Member();
+            member3.setUsername("C");
+
+            System.out.println("=================");
+
+            em.persist(member1); //1,51
+            em.persist(member2); //MEMORY
+            em.persist(member3); //MEMORY
+
+
+            System.out.println("member1.id = " + member1.getId());
+            System.out.println("member2.id = " + member2.getId());
+            System.out.println("member3.id = " + member3.getId());
+
+            System.out.println("=================");
+
             tx.commit();
         }catch(Exception e){
             tx.rollback();
