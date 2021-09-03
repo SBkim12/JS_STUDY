@@ -5,9 +5,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.FetchType.*;
+
+
 @Entity
 @Table(name = "ORDERS")
-public class Order {
+public class Order extends BaseEntity{
 
     @Id
     @GeneratedValue
@@ -15,16 +18,16 @@ public class Order {
     private Long id;
 
     //단방향 매핑
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @OneToOne
+    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL) // 영속성 전이 설정
     @JoinColumn(name = "DELIVERY_ID")
     private Delivery delivery;
 
     //양방향 매핑
-    @OneToMany(mappedBy =  "order")
+    @OneToMany(mappedBy =  "order", cascade = CascadeType.ALL) // 영속성 전이 설정
     private List<OrderItem> orderItems = new ArrayList<>();
 
     private LocalDateTime orderDate;
